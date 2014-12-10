@@ -26,7 +26,7 @@
     /* Setup your scene here */
     myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     
-    myLabel.text = @"bye, World!";
+    myLabel.text = @"bfdsfssfye, World!";
     myLabel.fontSize = 10;
     myLabel.position = CGPointMake(CGRectGetMidX(self.frame),
                                    CGRectGetMidY(self.frame));
