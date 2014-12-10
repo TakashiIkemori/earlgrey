@@ -23,7 +23,7 @@
     /* Setup your scene here */
     SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     
-    myLabel.text = @"こんにちわ";
+    myLabel.text = @"腹減った";
     myLabel.fontSize = 10;
     myLabel.position = CGPointMake(CGRectGetMidX(self.frame),
                                    CGRectGetMidY(self.frame));
