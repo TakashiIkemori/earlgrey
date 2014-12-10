@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 SO14. All rights reserved.
 //
 
+// Hirofumi Tanigami
+
 #import "GameScene.h"
 
 @implementation GameScene
