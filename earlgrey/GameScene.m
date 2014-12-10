@@ -11,7 +11,7 @@
 // Yuta Tamura
 // Ajia Suzuki
 // Takashi Ikemori
-// schagawa
+// chagawa yacchan
 // mori yuuya
 
 
