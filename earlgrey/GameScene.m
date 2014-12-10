@@ -4,7 +4,7 @@
 //
 //  Created by Hirofumi Tanigami on 12/10/14.
 //  Copyright (c) 2014 SO14. All rights reserved.
-//  TakatoshiMasamori 
+//  TakatoshiMasamori  
 
 //  RikuSaito
 // Hirofumi Tanigami
@@ -38,8 +38,8 @@
         
         SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
         
-        sprite.xScale = 0.5;
-        sprite.yScale = 0.5;
+        sprite.xScale = 0.25;
+        sprite.yScale = 0.25;
         sprite.position = location;
         
         SKAction *action = [SKAction rotateByAngle:M_PI duration:100];
