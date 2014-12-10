@@ -32,7 +32,7 @@
                                    CGRectGetMidY(self.frame));
     
     [self addChild:myLabel];
-    NSLog(@"Hello SO14!!");
+    NSLog(@"焼き肉は");
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -46,7 +46,7 @@
         sprite.xScale = 1.0;
         sprite.yScale = 1.0;
         sprite.position = location;
-        myLabel.text = @"いけちゃん";
+        myLabel.text = @"焼肉チャンピオン";
         
         SKAction *action = [SKAction rotateByAngle:M_PI duration:100];
         
