@@ -11,7 +11,7 @@
 // Yuta Tamura
 // Ajia Suzuki
 // Takashi Ikemori
-// schagawa
+// chagawa yacchan
 // mori yuuya
 
 
@@ -23,7 +23,7 @@
     /* Setup your scene here */
     SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     
-    myLabel.text = @"ニーハオ";
+    myLabel.text = @"腹減った";
     myLabel.fontSize = 10;
     myLabel.position = CGPointMake(CGRectGetMidX(self.frame),
                                    CGRectGetMidY(self.frame));
