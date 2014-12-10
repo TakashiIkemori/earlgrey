@@ -17,11 +17,14 @@
 
 #import "GameScene.h"
 
-@implementation GameScene
+@implementation GameScene {
+    
+    SKLabelNode *myLabel;
+}
 
 -(void)didMoveToView:(SKView *)view {
     /* Setup your scene here */
-    SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+    myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     
     myLabel.text = @"こんにちわ";
     myLabel.fontSize = 100;
@@ -43,6 +46,7 @@
         sprite.xScale = 1.0;
         sprite.yScale = 1.0;
         sprite.position = location;
+        myLabel.text = @"いけちゃん";
         
         SKAction *action = [SKAction rotateByAngle:M_PI duration:100];
         
