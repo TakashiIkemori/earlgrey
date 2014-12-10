@@ -38,8 +38,8 @@
         
         SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
         
-        sprite.xScale = 0.25;
-        sprite.yScale = 0.25;
+        sprite.xScale = 1.0;
+        sprite.yScale = 1.0;
         sprite.position = location;
         
         SKAction *action = [SKAction rotateByAngle:M_PI duration:100];
