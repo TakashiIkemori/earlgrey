@@ -29,6 +29,7 @@
                                    CGRectGetMidY(self.frame));
     
     [self addChild:myLabel];
+    NSLog(@"Hello SO14!!");
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
