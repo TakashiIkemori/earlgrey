@@ -4,12 +4,14 @@
 //
 //  Created by Hirofumi Tanigami on 12/10/14.
 //  Copyright (c) 2014 SO14. All rights reserved.
-//  TakatoshiMasamori 
+//  TakatoshiMasamori  
 
 //  RikuSaito
 // Hirofumi Tanigami
 // Yuta Tamura
 // Ajia Suzuki
+// Takashi Ikemori
+// schagawa
 
 
 #import "GameScene.h"
