@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 SO14. All rights reserved.
 //  TakatoshiMasamori 
 
+//  RikuSaito
 // Hirofumi Tanigami
 
-//  RikuSaito
 
 #import "GameScene.h"
 
