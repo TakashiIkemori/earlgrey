@@ -16,6 +16,7 @@
 		0062D3711A3857A6009A5E20 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0062D3701A3857A6009A5E20 /* Images.xcassets */; };
 		0062D3741A3857A6009A5E20 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0062D3721A3857A6009A5E20 /* LaunchScreen.xib */; };
 		0062D3801A3857A6009A5E20 /* earlgreyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0062D37F1A3857A6009A5E20 /* earlgreyTests.m */; };
+		0062D38A1A385EC6009A5E20 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 0062D3891A385EC6009A5E20 /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		0062D3791A3857A6009A5E20 /* earlgreyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = earlgreyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0062D37E1A3857A6009A5E20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0062D37F1A3857A6009A5E20 /* earlgreyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = earlgreyTests.m; sourceTree = "<group>"; };
+		0062D3891A385EC6009A5E20 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 		0062D3521A3857A6009A5E20 = {
 			isa = PBXGroup;
 			children = (
+				0062D3891A385EC6009A5E20 /* .gitignore */,
 				0062D35D1A3857A6009A5E20 /* earlgrey */,
 				0062D37C1A3857A6009A5E20 /* earlgreyTests */,
 				0062D35C1A3857A6009A5E20 /* Products */,
@@ -207,6 +210,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0062D38A1A385EC6009A5E20 /* .gitignore in Resources */,
 				0062D3741A3857A6009A5E20 /* LaunchScreen.xib in Resources */,
 				0062D3711A3857A6009A5E20 /* Images.xcassets in Resources */,
 				0062D3691A3857A6009A5E20 /* GameScene.sks in Resources */,
