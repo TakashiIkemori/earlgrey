@@ -12,6 +12,7 @@
 // Ajia Suzuki
 // Takashi Ikemori
 // schagawa
+// mori yuuya
 
 
 #import "GameScene.h"
