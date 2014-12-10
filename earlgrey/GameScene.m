@@ -9,6 +9,7 @@
 //  RikuSaito
 // Hirofumi Tanigami
 // Yuta Tamura
+// Ajia Suzuki
 
 
 #import "GameScene.h"
