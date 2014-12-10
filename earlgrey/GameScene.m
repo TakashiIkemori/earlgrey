@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 SO14. All rights reserved.
 //  TakatoshiMasamori  
 
-//  RikuSaito
+// RikuSaito
 // Hirofumi Tanigami
 // Yuta Tamura
 // Ajia Suzuki
