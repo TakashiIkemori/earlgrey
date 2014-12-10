@@ -10,7 +10,8 @@
 // Hirofumi Tanigami
 // Yuta Tamura
 // Ajia Suzuki
-// Takashi Ikemori 
+// Takashi Ikemori
+// schagawa
 
 
 #import "GameScene.h"
