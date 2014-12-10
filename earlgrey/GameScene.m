@@ -12,6 +12,7 @@
 // Ajia Suzuki
 // Takashi Ikemori
 // schagawa
+// mori yuuya
 
 
 #import "GameScene.h"
@@ -23,7 +24,7 @@
     SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     
     myLabel.text = @"Hello, World!";
-    myLabel.fontSize = 65;
+    myLabel.fontSize = 10;
     myLabel.position = CGPointMake(CGRectGetMidX(self.frame),
                                    CGRectGetMidY(self.frame));
     
