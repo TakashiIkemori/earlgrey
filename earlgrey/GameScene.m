@@ -8,6 +8,7 @@
 
 //  RikuSaito
 // Hirofumi Tanigami
+// Yuta Tamura
 
 
 #import "GameScene.h"
