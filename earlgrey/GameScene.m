@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 SO14. All rights reserved.
 //
 
+//  RikuSaito
+
 #import "GameScene.h"
 
 @implementation GameScene
