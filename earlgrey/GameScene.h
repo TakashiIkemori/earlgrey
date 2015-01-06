@@ -8,7 +8,7 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-@interface GameScene : SKScene
+#define kScoreName @"score"
 
 #define kCircleName @"circle"
 

@@ -16,9 +16,28 @@
 
 
 #import "GameScene.h"
+SKTexture *_texture;
 
 @implementation GameScene {
     
+}
+//うんこの生成
+-(void) setUpShit{
+    shit = [SKSpriteNode spriteNodeWithImageNamed:@"shit"];
+    shit.size = CGSizeMake(25, 25);
+    shit.position = CGPointMake(self.size.width / 2, self.size.height /2);
+    shit.physicsBody.dynamic = NO;
+    shit.name = @"shit";
+    [self addChild:shit];
+}
+//プリンの生成
+-(void) setUpPurin{
+    purin = [SKSpriteNode spriteNodeWithImageNamed:@"purin.jpeg"];
+    purin.size = CGSizeMake(25, 25);
+    purin.position = CGPointMake(self.size.width / 2, self.size.height /2);
+    purin.physicsBody.dynamic = NO;
+    purin.name = @"purin";
+    [self addChild:purin];
 }
 
 
@@ -34,6 +53,8 @@
     [self runAction: [SKAction repeatActionForever:makeCircles]];
 }
 
+
+// タッチ
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     /* Called when a touch begins */
     
