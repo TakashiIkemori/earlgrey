@@ -18,6 +18,7 @@
 		0062D3801A3857A6009A5E20 /* earlgreyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0062D37F1A3857A6009A5E20 /* earlgreyTests.m */; };
 		0062D38A1A385EC6009A5E20 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 0062D3891A385EC6009A5E20 /* .gitignore */; };
 		B2F2EE211A5BD84100CD10AD /* shit.png in Resources */ = {isa = PBXBuildFile; fileRef = B2F2EE201A5BD84100CD10AD /* shit.png */; };
+		B2F2EE231A5BF14C00CD10AD /* purin.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = B2F2EE221A5BF14C00CD10AD /* purin.jpeg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		0062D37F1A3857A6009A5E20 /* earlgreyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = earlgreyTests.m; sourceTree = "<group>"; };
 		0062D3891A385EC6009A5E20 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		B2F2EE201A5BD84100CD10AD /* shit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shit.png; sourceTree = "<group>"; };
+		B2F2EE221A5BF14C00CD10AD /* purin.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = purin.jpeg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 				0062D37C1A3857A6009A5E20 /* earlgreyTests */,
 				0062D35C1A3857A6009A5E20 /* Products */,
 				B2F2EE201A5BD84100CD10AD /* shit.png */,
+				B2F2EE221A5BF14C00CD10AD /* purin.jpeg */,
 			);
 			sourceTree = "<group>";
 		};
@@ -216,6 +219,7 @@
 				0062D38A1A385EC6009A5E20 /* .gitignore in Resources */,
 				0062D3741A3857A6009A5E20 /* LaunchScreen.xib in Resources */,
 				0062D3711A3857A6009A5E20 /* Images.xcassets in Resources */,
+				B2F2EE231A5BF14C00CD10AD /* purin.jpeg in Resources */,
 				0062D3691A3857A6009A5E20 /* GameScene.sks in Resources */,
 				0062D36F1A3857A6009A5E20 /* Main.storyboard in Resources */,
 				B2F2EE211A5BD84100CD10AD /* shit.png in Resources */,
