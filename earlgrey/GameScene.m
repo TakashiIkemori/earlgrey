@@ -102,6 +102,12 @@ SKTexture *_texture;
 
         SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithTexture:_texture];
         sprite.position = location;
+        myLabel.text = @"スコア";
+        
+        SKAction *action = [SKAction rotateByAngle:M_PI duration:100];
+        
+        [sprite runAction:[SKAction repeatActionForever:action]];
+        
         [self addChild:sprite];
 
 
