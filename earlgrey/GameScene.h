@@ -10,4 +10,8 @@
 
 @interface GameScene : SKScene
 
+#define kCircleName @"circle"
+
+
+
 @end
