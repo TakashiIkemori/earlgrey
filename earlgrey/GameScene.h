@@ -8,6 +8,8 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-@interface GameScene : SKScene
+#define kScoreName @"score"
 
+@interface GameScene : SKScene
+@property (assign, nonatomic)int score;		//スコア
 @end
