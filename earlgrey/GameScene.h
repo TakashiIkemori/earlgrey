@@ -8,10 +8,13 @@
 
 #import <SpriteKit/SpriteKit.h>
 
+#define kCircleName @"circle"
 #define kScoreName @"score"
 
-#define kCircleName @"circle"
+static const uint32_t circleCategory = 0x1 << 0;
 
+@interface GameScene : SKScene
 
+@property (assign, nonatomic)int score;		//スコア
 
 @end

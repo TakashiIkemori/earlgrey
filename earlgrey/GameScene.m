@@ -18,55 +18,59 @@
 #import "GameScene.h"
 SKTexture *_texture;
 
-@implementation GameScene {
-    
-}
-//うんこの生成
--(void) setUpShit{
-    shit = [SKSpriteNode spriteNodeWithImageNamed:@"shit"];
-    shit.size = CGSizeMake(25, 25);
-    shit.position = CGPointMake(self.size.width / 2, self.size.height /2);
-    shit.physicsBody.dynamic = NO;
-    shit.name = @"shit";
-    [self addChild:shit];
-}
-//プリンの生成
--(void) setUpPurin{
-    purin = [SKSpriteNode spriteNodeWithImageNamed:@"purin.jpeg"];
-    purin.size = CGSizeMake(25, 25);
-    purin.position = CGPointMake(self.size.width / 2, self.size.height /2);
-    purin.physicsBody.dynamic = NO;
-    purin.name = @"purin";
-    [self addChild:purin];
-}
-
+@implementation GameScene
 
 -(void)didMoveToView:(SKView *)view {
-    /* Setup your scene here */
-
+    
     self.backgroundColor = [SKColor blackColor];
     self.physicsWorld.gravity = CGVectorMake(0,0);
-    
+
     SKAction *makeCircles = [SKAction sequence: @[
-                                                [SKAction performSelector:@selector(addCircle) onTarget:self],
-                                                [SKAction waitForDuration:1.5 withRange:1.0]]];
+                                                  [SKAction performSelector:@selector(addCircle) onTarget:self],
+                                                  [SKAction waitForDuration:1.5 withRange:1.0]]];
     [self runAction: [SKAction repeatActionForever:makeCircles]];
+    
+    //スコアタイトル
+    SKLabelNode *scoreTitleNode = [SKLabelNode labelNodeWithFontNamed:@"Baskerville-Bold"];
+    scoreTitleNode.fontSize = 30;
+    scoreTitleNode.text = @"SCORE";
+    [self addChild:scoreTitleNode];
+    scoreTitleNode.position = CGPointMake((scoreTitleNode.frame.size.width/2) + 10,self.frame.size.height -30);
+    //スコア点数
+    SKLabelNode *scoreNode = [SKLabelNode labelNodeWithFontNamed:@"Baskerville-Bold"];
+    scoreNode.name = kScoreName;
+    scoreNode.fontSize = 30;
+    [self addChild:scoreNode];
+    self.score = 0;
+    scoreNode.position = CGPointMake(self.size.width / 2, self.frame.size.height -30);
+   
 }
 
 
 // タッチ
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    /* Called when a touch begins */
-    
-   
-}
-
--(void)didSimulatePhysics {
-    [self enumerateChildNodesWithName:kCircleName usingBlock:^(SKNode *node,BOOL *stop) {
-        if (node.position.y < 0 || node.position.y > self.frame.size.height ||
-            node.position.x < 0 || node.position.x > self.frame.size.width)
+    for (UITouch *touch in touches) {
+        CGPoint location = [touch locationInNode:self];
+        
+//        SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithTexture:_texture];
+//        sprite.position = location;
+        
+        
+        SKNode *node = [self nodeAtPoint:location];
+        
+        if(node != nil && [node.name isEqualToString:kCircleName]) {
             [node removeFromParent];
-    }];
+            self.score += 10;
+        } /*else {
+            SKNode *node1 = [self nodeAtPoint:location];
+            if(node1 != nil && [node1.name isEqualToString:@"purin"]) {
+                [node1 removeFromParent];
+                self.score -= 10;
+                */
+                break;
+            //}
+        //}
+    }
 }
 
 
@@ -80,16 +84,12 @@ static inline CGFloat skRandf() {
 
 
 - (void)addCircle {
-    
     SKShapeNode *circle = [SKShapeNode node];
     circle.name = kCircleName;
     circle.Path = CGPathCreateWithEllipseInRect(CGRectMake(-25, -25, 50, 50), nil);
     circle.fillColor = [SKColor redColor];
-    circle.strokeColor = 0;
-    
     
     CGPoint position;
-    
     switch (arc4random() % 4) {
         case 0: // 上から出る場合
             position = CGPointMake(skRand(0,self.frame.size.width),self.frame.size.height);
@@ -104,19 +104,39 @@ static inline CGFloat skRandf() {
             position = CGPointMake(0,skRand(0, self.frame.size.height));
             break;
     }
-    
     circle.position = position;
-    
     
     [self addChild:circle];
     circle.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:circle.frame.size.width / 2];
+    circle.physicsBody.categoryBitMask = circleCategory;
+    circle.physicsBody.contactTestBitMask = 0;
+    circle.physicsBody.collisionBitMask = 0;
     CGPoint location = CGPointMake(skRand(0,self.size.width),skRand(0,self.size.height));
     CGFloat radian = -(atan2f(location.x - circle.position.x,
-                              location.y - circle.position.y));
+                                location.y-circle.position.y));
     circle.zRotation = radian;
     CGFloat x = sin(radian);
     CGFloat y = cos(radian);
-    circle.physicsBody.velocity = CGVectorMake(-(500*x), (500*y));
+    circle.physicsBody.velocity = CGVectorMake(-(400*x), (400*y));
 }
+
+- (void)didSimulatePhysics {
+    [self enumerateChildNodesWithName:kCircleName usingBlock:^(SKNode *node,BOOL *stop) {
+        if (node.position.y < 0 || node.position.y > self.frame.size.height ||
+            node.position.x < 0 || node.position.x > self.frame.size.width)
+            [node removeFromParent];
+    }];
+}
+
+//スコア更新
+-(void)setScore:(int)score
+{
+    _score = score;
+    //ラベル更新
+    SKLabelNode* scoreNode;
+    scoreNode = (SKLabelNode *)[self childNodeWithName:kScoreName];
+    scoreNode.text = [NSString stringWithFormat:@"%d", _score];
+}
+
 
 @end
