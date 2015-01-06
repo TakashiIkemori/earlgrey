@@ -23,40 +23,16 @@ SKTexture *_texture;
     SKSpriteNode *purin;
     SKLabelNode *myLabel;
 }
-
-
-//-(id)initWithSize:(CGSize)size{
-//    if(self = [super initWithSize:size]){
-//        self.backgroundColor = [SKColor colorWithRed:1 green:1 blue:1 alpha:1];
-//        SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
-//        myLabel.text = @"Hello,World";
-//        myLabel.fontSize = 30;
-//        myLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame));
-//        
-//        [self addChild:myLabel];
-//        
-//        _texture = [SKTexture textureWithImage:@"shit.png"];
-//    }
-//    return self;
-//}
-
-
-
-
-
-//
+//うんこの生成
 -(void) setUpShit{
     shit = [SKSpriteNode spriteNodeWithImageNamed:@"shit"];
     shit.size = CGSizeMake(25, 25);
     shit.position = CGPointMake(self.size.width / 2, self.size.height /2);
-//    player.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:0.5];
-    //player.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:player.size];
-//    player.physicsBody.contactTestBitMask = 0x1<<0;
     shit.physicsBody.dynamic = NO;
     shit.name = @"shit";
     [self addChild:shit];
 }
-
+//プリンの生成
 -(void) setUpPurin{
     purin = [SKSpriteNode spriteNodeWithImageNamed:@"purin.jpeg"];
     purin.size = CGSizeMake(25, 25);
@@ -67,9 +43,8 @@ SKTexture *_texture;
 }
 
 
-//画像の生成
+//いろんな生成
 -(void)didMoveToView:(SKView *)view {
-    /* Setup your scene here */
     SKSpriteNode *sprite1 = [SKSpriteNode spriteNodeWithImageNamed:@"shit"];
     sprite1.xScale = 0.5;
     sprite1.yScale = 0.5;
@@ -101,7 +76,6 @@ SKTexture *_texture;
     [self addChild:sprite2];
     [self addChild:sprite1];
     [self addChild:myLabel];
-//    NSLog(@"Hello SO14!!");
 }
 
 
@@ -128,7 +102,7 @@ SKTexture *_texture;
             break;
         }
     }
-}
+  }
 }
 
 
