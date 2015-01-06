@@ -19,7 +19,8 @@
 SKTexture *_texture;
 
 @implementation GameScene {
-    SKSpriteNode *player;
+    SKSpriteNode *shit;
+    SKSpriteNode *purin;
     SKLabelNode *myLabel;
 }
 
@@ -44,36 +45,45 @@ SKTexture *_texture;
 
 
 //
--(void) setUpPlayer{
-    player = [SKSpriteNode spriteNodeWithImageNamed:@"shit"];
-    player.size = CGSizeMake(25, 25);
-    player.position = CGPointMake(self.size.width / 2, self.size.height /2);
+-(void) setUpShit{
+    shit = [SKSpriteNode spriteNodeWithImageNamed:@"shit"];
+    shit.size = CGSizeMake(25, 25);
+    shit.position = CGPointMake(self.size.width / 2, self.size.height /2);
 //    player.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:0.5];
     //player.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:player.size];
 //    player.physicsBody.contactTestBitMask = 0x1<<0;
-    player.physicsBody.dynamic = NO;
-    player.name = @"player";
-    [self addChild:player];
+    shit.physicsBody.dynamic = NO;
+    shit.name = @"shit";
+    [self addChild:shit];
 }
 
-
+-(void) setUpPurin{
+    purin = [SKSpriteNode spriteNodeWithImageNamed:@"purin.jpeg"];
+    purin.size = CGSizeMake(25, 25);
+    purin.position = CGPointMake(self.size.width / 2, self.size.height /2);
+    purin.physicsBody.dynamic = NO;
+    purin.name = @"purin";
+    [self addChild:purin];
+}
 
 
 //画像の生成
 -(void)didMoveToView:(SKView *)view {
     /* Setup your scene here */
-      SKSpriteNode *sprite1 = [SKSpriteNode spriteNodeWithImageNamed:@"shit"];
+    SKSpriteNode *sprite1 = [SKSpriteNode spriteNodeWithImageNamed:@"shit"];
     sprite1.xScale = 0.5;
     sprite1.yScale = 0.5;
     sprite1.position = CGPointMake(self.size.width / 2 +50,
                                    self.size.height /2 - 100);
     sprite1.name = @"shit";
-    SKSpriteNode *sprite2 = [SKSpriteNode spriteNodeWithImageNamed:@"shit"];
+    
+    
+    SKSpriteNode *sprite2 = [SKSpriteNode spriteNodeWithImageNamed:@"purin.jpeg"];
     sprite2.xScale = 0.3;
     sprite2.yScale = 0.3;
     sprite2.position = CGPointMake(self.size.width / 2 - 50,
                                    self.size.height /2 + 100);
-    sprite2.name = @"shit";
+    sprite2.name = @"purin";
 
     myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     
@@ -104,21 +114,21 @@ SKTexture *_texture;
         sprite.position = location;
         myLabel.text = @"スコア";
         
-        SKAction *action = [SKAction rotateByAngle:M_PI duration:100];
-        
-        [sprite runAction:[SKAction repeatActionForever:action]];
-        
-        [self addChild:sprite];
-
-
         SKNode *node = [self nodeAtPoint:location];
+        
         if(node != nil && [node.name isEqualToString:@"shit"]) {
             [node removeFromParent];
             self.score += 10;
+        } else {
+        SKNode *node1 = [self nodeAtPoint:location];
+        if(node1 != nil && [node1.name isEqualToString:@"purin"]) {
+            [node1 removeFromParent];
+            self.score -= 10;
+
             break;
         }
     }
-
+}
 }
 
 
@@ -132,6 +142,9 @@ SKTexture *_texture;
     scoreNode = (SKLabelNode*)[self childNodeWithName:kScoreName];
     scoreNode.text = [NSString stringWithFormat:@"%d", _score];
 }
+
+
+
 
 -(void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
