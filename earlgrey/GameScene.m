@@ -16,33 +16,41 @@
 
 
 #import "GameScene.h"
-SKTexture *_texture;
 
-@implementation GameScene
+@implementation GameScene {
+    SKLabelNode *scoreNode;
+    CGFloat radius;
+}
 
 -(void)didMoveToView:(SKView *)view {
     
-    self.backgroundColor = [SKColor blackColor];
-    self.physicsWorld.gravity = CGVectorMake(0,0);
+    radius = 25;
+    self.backgroundColor = [SKColor colorWithRed:1.0 green:0.8 blue:0.6 alpha:1];
+    self.physicsWorld.gravity = CGVectorMake(0, 0);
 
     SKAction *makeCircles = [SKAction sequence: @[
                                                   [SKAction performSelector:@selector(addCircle) onTarget:self],
-                                                  [SKAction waitForDuration:1.5 withRange:1.0]]];
+                                                  [SKAction waitForDuration:1.5 withRange:3.0]]];
     [self runAction: [SKAction repeatActionForever:makeCircles]];
     
     //スコアタイトル
+    int margin = 10;
     SKLabelNode *scoreTitleNode = [SKLabelNode labelNodeWithFontNamed:@"Baskerville-Bold"];
     scoreTitleNode.fontSize = 30;
     scoreTitleNode.text = @"SCORE";
     [self addChild:scoreTitleNode];
-    scoreTitleNode.position = CGPointMake((scoreTitleNode.frame.size.width/2) + 10,self.frame.size.height -30);
+    CGSize scoreTitleNodeSize = scoreTitleNode.frame.size;
+    scoreTitleNode.position = CGPointMake(margin + (scoreTitleNodeSize.width / 2),
+                                          self.size.height - margin - scoreTitleNodeSize.height);
     //スコア点数
-    SKLabelNode *scoreNode = [SKLabelNode labelNodeWithFontNamed:@"Baskerville-Bold"];
+    scoreNode = [SKLabelNode labelNodeWithFontNamed:@"Baskerville-Bold"];
     scoreNode.name = kScoreName;
     scoreNode.fontSize = 30;
     [self addChild:scoreNode];
     self.score = 0;
-    scoreNode.position = CGPointMake(self.size.width / 2, self.frame.size.height -30);
+    scoreNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
+    scoreNode.position = CGPointMake(margin + scoreTitleNodeSize.width + margin + scoreNode.frame.size.width / 2,
+                                     self.size.height - margin - scoreTitleNodeSize.height);
    
 }
 
@@ -51,14 +59,10 @@ SKTexture *_texture;
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     for (UITouch *touch in touches) {
         CGPoint location = [touch locationInNode:self];
-        
-//        SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithTexture:_texture];
-//        sprite.position = location;
-        
-        
+   
         SKNode *node = [self nodeAtPoint:location];
         
-        if(node != nil && [node.name isEqualToString:kCircleName]) {
+        if (node != nil && [node.name isEqualToString:kCircleName]) {
             [node removeFromParent];
             self.score += 10;
         } /*else {
@@ -86,22 +90,27 @@ static inline CGFloat skRandf() {
 - (void)addCircle {
     SKShapeNode *circle = [SKShapeNode node];
     circle.name = kCircleName;
-    circle.Path = CGPathCreateWithEllipseInRect(CGRectMake(-25, -25, 50, 50), nil);
-    circle.fillColor = [SKColor redColor];
+    circle.Path = CGPathCreateWithEllipseInRect(CGRectMake(-radius, -radius, radius * 2, radius * 2), nil);
+    circle.fillColor = [SKColor colorWithRed:1.0 green:0.5 blue:0.5 alpha:1.0];
+    circle.lineWidth = 0;
     
     CGPoint position;
     switch (arc4random() % 4) {
         case 0: // 上から出る場合
-            position = CGPointMake(skRand(0,self.frame.size.width),self.frame.size.height);
+            position = CGPointMake(skRand(-radius, self.size.width + radius),
+                                   self.size.height + radius);
             break;
         case 1: // 右
-            position = CGPointMake(self.frame.size.width,skRand(0,self.frame.size.height));
+            position = CGPointMake(self.size.width + radius,
+                                   skRand(-radius, self.size.height + radius));
             break;
         case 2: // 下
-            position = CGPointMake(skRand(0,self.frame.size.width),0);
+            position = CGPointMake(skRand(-radius, self.size.width + radius),
+                                   -radius);
             break;
         case 3: // 左
-            position = CGPointMake(0,skRand(0, self.frame.size.height));
+            position = CGPointMake(-radius,
+                                   skRand(-radius, self.size.height + radius));
             break;
     }
     circle.position = position;
@@ -111,20 +120,22 @@ static inline CGFloat skRandf() {
     circle.physicsBody.categoryBitMask = circleCategory;
     circle.physicsBody.contactTestBitMask = 0;
     circle.physicsBody.collisionBitMask = 0;
-    CGPoint location = CGPointMake(skRand(0,self.size.width),skRand(0,self.size.height));
-    CGFloat radian = -(atan2f(location.x - circle.position.x,
-                                location.y-circle.position.y));
+    CGPoint target = CGPointMake(skRand(0, self.size.width),
+                                 skRand(0, self.size.height));
+    CGFloat radian = -(atan2f(target.x - circle.position.x,
+                              target.y - circle.position.y));
     circle.zRotation = radian;
     CGFloat x = sin(radian);
     CGFloat y = cos(radian);
-    circle.physicsBody.velocity = CGVectorMake(-(400*x), (400*y));
+    circle.physicsBody.velocity = CGVectorMake(-(skRand(200, 600) * x), skRand(200, 600) * y);
 }
 
 - (void)didSimulatePhysics {
     [self enumerateChildNodesWithName:kCircleName usingBlock:^(SKNode *node,BOOL *stop) {
-        if (node.position.y < 0 || node.position.y > self.frame.size.height ||
-            node.position.x < 0 || node.position.x > self.frame.size.width)
+        if (node.position.y < -radius || node.position.y > self.size.height + radius ||
+            node.position.x < -radius || node.position.x > self.size.width + radius) {
             [node removeFromParent];
+        }
     }];
 }
 
@@ -133,8 +144,6 @@ static inline CGFloat skRandf() {
 {
     _score = score;
     //ラベル更新
-    SKLabelNode* scoreNode;
-    scoreNode = (SKLabelNode *)[self childNodeWithName:kScoreName];
     scoreNode.text = [NSString stringWithFormat:@"%d", _score];
 }
 
