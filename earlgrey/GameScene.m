@@ -17,7 +17,16 @@
 
 #import "GameScene.h"
 
+// ゲームのステータス
+typedef enum {
+    STOPPED,    // 止まっている
+    STARTING,   // 始まる
+    PLAYING,    // 遊んでいる
+}GameState;
+
+
 @implementation GameScene {
+    
     SKTexture *_texture1jpy;
     SKTexture *_texture5jpy;
     SKTexture *_texture10jpy;
@@ -25,12 +34,18 @@
     SKTexture *_texture100jpy;
     SKTexture *_texture500jpy;
     SKLabelNode *scoreNode;
+    SKLabelNode *timerLabel;
     CGFloat radius1jpy;
     CGFloat radius5jpy;
     CGFloat radius10jpy;
     CGFloat radius50jpy;
     CGFloat radius100jpy;
     CGFloat radius500jpy;
+    
+    GameState _gameState;
+    NSTimeInterval _startedTime;
+    
+    
 }
 
 -(void)didMoveToView:(SKView *)view {
@@ -89,6 +104,17 @@
     scoreNode.position = CGPointMake(margin + scoreTitleNodeSize.width + margin + scoreNode.frame.size.width / 2,
                                      self.size.height - margin - scoreTitleNodeSize.height);
     
+    //Timer
+    timerLabel = [SKLabelNode labelNodeWithFontNamed:@"Arial"];
+    timerLabel.text = @"残り時間: 0";
+    timerLabel.fontColor = [UIColor whiteColor];
+    timerLabel.fontSize = 24.0f;
+    timerLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
+    timerLabel.position = CGPointMake(10,10);
+    
+    [self addChild:timerLabel];
+    
+    
     //texture設定
     _texture1jpy = [SKTexture textureWithImageNamed:@"1jpy.png"];
     _texture5jpy = [SKTexture textureWithImageNamed:@"5jpy.png"];
@@ -108,26 +134,49 @@
         SKNode *node = [self nodeAtPoint:location];
         
         if (node != nil && [node.name isEqualToString:k1JPYName]) {
+            if(_gameState == STOPPED) {         // 1枚目のコインが消えたらスタート
+                _gameState = STARTING;
+            }
             [node removeFromParent];
             self.score += 1;
         }
         if (node != nil && [node.name isEqualToString:k5JPYName]) {
+            if(_gameState == STOPPED) {         // 1枚目のコインが消えたらスタート
+                _gameState = STARTING;
+            }
+
             [node removeFromParent];
             self.score += 5;
         }
         if (node != nil && [node.name isEqualToString:k10JPYName]) {
+            if(_gameState == STOPPED) {         // 1枚目のコインが消えたらスタート
+                _gameState = STARTING;
+            }
+
             [node removeFromParent];
             self.score += 10;
         }
         if (node != nil && [node.name isEqualToString:k50JPYName]) {
+            if(_gameState == STOPPED) {         // 1枚目のコインが消えたらスタート
+                _gameState = STARTING;
+            }
+
             [node removeFromParent];
             self.score += 50;
         }
         if (node != nil && [node.name isEqualToString:k100JPYName]) {
+            if(_gameState == STOPPED) {            // 1枚目のコインが消えたらスタート
+                _gameState = STARTING;
+            }
+
             [node removeFromParent];
             self.score += 100;
         }
         if (node != nil && [node.name isEqualToString:k500JPYName]) {
+            if(_gameState == STOPPED) {         // 1枚目のコインが消えたらスタート
+                _gameState = STARTING;
+            }
+
             [node removeFromParent];
             self.score += 500;
         }
@@ -436,12 +485,56 @@ static inline CGFloat skRandf() {
     
 }
 
+
 //スコア更新
 -(void)setScore:(int)score
 {
     _score = score;
     //ラベル更新
     scoreNode.text = [NSString stringWithFormat:@"%d円", _score];
+}
+
+// ゲームオーバー
+-(void)gameEnded
+{
+    _gameState = STOPPED;
+    
+    NSString *message = [NSString stringWithFormat:@"君のお年玉は%d円", _score];
+    
+    UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"タイムアップ！"
+                                                 message:message
+                                                delegate:nil
+                                                cancelButtonTitle:@"もう一度やる"
+                                                otherButtonTitles:@"辞めさせない", nil];
+    [av show];
+    _score = 0;
+}
+
+// タイマー
+-(void)update:(NSTimeInterval)currentTime {
+    if(_gameState == STARTING) {
+        _startedTime = currentTime;
+        _gameState = PLAYING;
+    }
+    
+    if(_gameState == PLAYING) {
+        int timeLeftRounded = ceil(3+(_startedTime - currentTime));     // <----- ここで秒数を設定 現在　３秒。
+        timerLabel.text = [NSString stringWithFormat:@"残り時間: %d", timeLeftRounded];
+        
+        if(timeLeftRounded == 0) {
+            [self gameEnded];
+        }
+        
+    }
+}
+
+
+// タイマー更新
+-(void)setTime:(int)time
+{
+    _time = time;
+    //ラベル更新
+    timerLabel.text = [NSString stringWithFormat:@"%d残り時間", _time];
 }
 
 
