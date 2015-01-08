@@ -16,13 +16,13 @@
 
 
 #import "GameScene.h"
+const int TIME_LEVEL = 05.0f; // <----- ここで秒数を設定 現在　5秒。
+
+
 
 // ゲームのステータス
-typedef enum {
-    STOPPED,    // 止まっている
-    STARTING,   // 始まる
-    PLAYING,    // 遊んでいる
-}GameState;
+@interface GameScene()
+@end
 
 
 @implementation GameScene {
@@ -518,7 +518,7 @@ static inline CGFloat skRandf() {
     }
     
     if(_gameState == PLAYING) {
-        int timeLeftRounded = ceil(3+(_startedTime - currentTime));     // <----- ここで秒数を設定 現在　３秒。
+        int timeLeftRounded = ceil(TIME_LEVEL+(_startedTime - currentTime));
         timerLabel.text = [NSString stringWithFormat:@"残り時間: %d", timeLeftRounded];
         
         if(timeLeftRounded == 0) {
