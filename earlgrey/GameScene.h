@@ -21,5 +21,6 @@ static const uint32_t jpyCategory = 0x1 << 0;
 @interface GameScene : SKScene
 
 @property (assign, nonatomic)int score;		//スコア
+@property (assign, nonatomic)int time;      //タイム
 
 @end
