@@ -16,9 +16,16 @@
 #define k500JPYName @"500JPY"
 #define kScoreName @"score"
 
+
 static const uint32_t jpyCategory = 0x1 << 0;
 
 @interface GameScene : SKScene
+
+typedef enum {
+    STOPPED,    // 止まっている
+    STARTING,   // 始まる
+    PLAYING,    // 遊んでいる
+}GameState;
 
 @property (assign, nonatomic)int score;		//スコア
 @property (assign, nonatomic)int time;      //タイム
