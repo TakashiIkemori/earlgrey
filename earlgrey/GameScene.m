@@ -16,13 +16,11 @@
 
 
 #import "GameScene.h"
-
-
+const int TIME_LEVEL = 05.0f; // <----- ここで秒数を設定 現在　5秒。
 
 // ゲームのステータス
 @interface GameScene()
 @end
-
 
 @implementation GameScene {
     
@@ -45,6 +43,8 @@
     NSTimeInterval _startedTime;
     
     SKAction *coinremove;
+    
+    SKAction *SECoin;
 }
 
 -(void)didMoveToView:(SKView *)view {
@@ -97,7 +97,6 @@
     scoreNode = [SKLabelNode labelNodeWithFontNamed:@"Baskerville-Bold"];
     scoreNode.name = kScoreName;
     scoreNode.fontSize = 30;
-
     [self addChild:scoreNode];
     self.score = 0;
     scoreNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
@@ -125,22 +124,20 @@
     
     //coinremove
     coinremove = [SKAction sequence: @[
-                                        [SKAction moveBy:CGVectorMake(0, 50) duration:0.15],
-                                        [SKAction moveBy:CGVectorMake(0, -50) duration:0.15],
-                                        [SKAction fadeOutWithDuration:0.5],
-                                        [SKAction removeFromParent]
-                                        ]];
-    
-   
+                                       [SKAction moveBy:CGVectorMake(0, 50) duration:0.15],
+                                       [SKAction moveBy:CGVectorMake(0, 0) duration:0.15],
+                                       [SKAction fadeOutWithDuration:0.2],
+                                       [SKAction removeFromParent]
+                                       ]];
 }
-
 
 // タッチ
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     for (UITouch *touch in touches) {
         CGPoint location = [touch locationInNode:self];
-   
+
         SKNode *node = [self nodeAtPoint:location];
+        SECoin = [SKAction playSoundFileNamed:@"coinSE.mp3" waitForCompletion:NO];
         
         if (node != nil && [node.name isEqualToString:k1JPYName]) {
             if(_gameState == STOPPED) {         // 1枚目のコインが消えたらスタート
@@ -148,6 +145,7 @@
             }
             node.physicsBody.dynamic = NO;
             [node runAction:coinremove];
+            [self runAction:SECoin];
             self.score += 1;
         }
         if (node != nil && [node.name isEqualToString:k5JPYName]) {
@@ -156,6 +154,7 @@
             }
             node.physicsBody.dynamic = NO;
             [node runAction:coinremove];
+            [self runAction:SECoin];
             self.score += 5;
         }
         if (node != nil && [node.name isEqualToString:k10JPYName]) {
@@ -164,6 +163,7 @@
             }
             node.physicsBody.dynamic = NO;
             [node runAction:coinremove];
+            [self runAction:SECoin];
             self.score += 10;
         }
         if (node != nil && [node.name isEqualToString:k50JPYName]) {
@@ -172,6 +172,7 @@
             }
             node.physicsBody.dynamic = NO;
             [node runAction:coinremove];
+            [self runAction:SECoin];
             self.score += 50;
         }
         if (node != nil && [node.name isEqualToString:k100JPYName]) {
@@ -180,6 +181,7 @@
             }
             node.physicsBody.dynamic = NO;
             [node runAction:coinremove];
+            [self runAction:SECoin];
             self.score += 100;
         }
         if (node != nil && [node.name isEqualToString:k500JPYName]) {
@@ -188,6 +190,7 @@
             }
             node.physicsBody.dynamic = NO;
             [node runAction:coinremove];
+            [self runAction:SECoin];
             self.score += 500;
         }
     }
@@ -209,13 +212,11 @@ static inline CGFloat skRandf() {
     jpy1.size = CGSizeMake(radius1jpy * 2, radius1jpy * 2);
     
     
-   
-    
     CGPoint position;
     switch (arc4random() % 4) {
         case 0: // 上から出る場合
-            position = CGPointMake(skRand(0,self.frame.size.width),
-                                   self.frame.size.height);
+            position = CGPointMake(skRand(-radius1jpy, self.size.width + radius1jpy),
+                                   self.size.height + radius1jpy);
             break;
         case 1: // 右
             position = CGPointMake(self.size.width + radius1jpy,
@@ -230,23 +231,238 @@ static inline CGFloat skRandf() {
                                    skRand(-radius1jpy, self.size.height + radius1jpy));
             break;
     }
+    jpy1.position = position;
     
-    circle.position = position;
-    
-    [self addChild:circle];
-    circle.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:circle.frame.size.width / 2];
-    circle.physicsBody.categoryBitMask = circleCategory;
-    circle.physicsBody.contactTestBitMask = 0;
-    circle.physicsBody.collisionBitMask = 0;
-    CGPoint location = CGPointMake(skRand(0,self.size.width),skRand(0,self.size.height));
-    CGFloat radian = -(atan2f(location.x - circle.position.x,
-                                location.y-circle.position.y));
-    circle.zRotation = radian;
+    [self addChild:jpy1];
+    jpy1.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:jpy1.frame.size.width / 2];
+    jpy1.physicsBody.categoryBitMask = jpyCategory;
+    jpy1.physicsBody.contactTestBitMask = 0;
+    jpy1.physicsBody.collisionBitMask = 0;
+    CGPoint target = CGPointMake(skRand(0, self.size.width),
+                                 skRand(0, self.size.height));
+    CGFloat radian = -(atan2f(target.x - jpy1.position.x,
+                              target.y - jpy1.position.y));
+    jpy1.zRotation = radian;
     CGFloat x = sin(radian);
     CGFloat y = cos(radian);
-    
-    circle.physicsBody.velocity = CGVectorMake(-(400*x), (400*y));
+    jpy1.physicsBody.velocity = CGVectorMake(-(skRand(200, 600) * x), skRand(200, 600) * y);
 }
+
+
+- (void)add5JPY {
+    SKSpriteNode *jpy5 = [SKSpriteNode spriteNodeWithTexture:_texture5jpy];
+    jpy5.name = k5JPYName;
+    jpy5.size = CGSizeMake(radius5jpy * 2, radius5jpy * 2);
+    
+    
+    CGPoint position;
+    switch (arc4random() % 4) {
+        case 0: // 上から出る場合
+            position = CGPointMake(skRand(-radius5jpy, self.size.width + radius5jpy),
+                                   self.size.height + radius5jpy);
+            break;
+        case 1: // 右
+            position = CGPointMake(self.size.width + radius5jpy,
+                                   skRand(-radius5jpy, self.size.height + radius5jpy));
+            break;
+        case 2: // 下
+            position = CGPointMake(skRand(-radius5jpy, self.size.width + radius5jpy),
+                                   -radius5jpy);
+            break;
+        case 3: // 左
+            position = CGPointMake(-radius5jpy,
+                                   skRand(-radius5jpy, self.size.height + radius5jpy));
+            break;
+    }
+    jpy5.position = position;
+    
+    [self addChild:jpy5];
+    jpy5.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:jpy5.frame.size.width / 2];
+    jpy5.physicsBody.categoryBitMask = jpyCategory;
+    jpy5.physicsBody.contactTestBitMask = 0;
+    jpy5.physicsBody.collisionBitMask = 0;
+    CGPoint target = CGPointMake(skRand(0, self.size.width),
+                                 skRand(0, self.size.height));
+    CGFloat radian = -(atan2f(target.x - jpy5.position.x,
+                              target.y - jpy5.position.y));
+    jpy5.zRotation = radian;
+    CGFloat x = sin(radian);
+    CGFloat y = cos(radian);
+    jpy5.physicsBody.velocity = CGVectorMake(-(skRand(200, 600) * x), skRand(200, 600) * y);
+}
+
+
+- (void)add10JPY {
+    SKSpriteNode *jpy10 = [SKSpriteNode spriteNodeWithTexture:_texture10jpy];
+    jpy10.name = k10JPYName;
+    jpy10.size = CGSizeMake(radius10jpy * 2, radius10jpy * 2);
+    
+    
+    CGPoint position;
+    switch (arc4random() % 4) {
+        case 0: // 上から出る場合
+            position = CGPointMake(skRand(-radius10jpy, self.size.width + radius10jpy),
+                                   self.size.height + radius10jpy);
+            break;
+        case 1: // 右
+            position = CGPointMake(self.size.width + radius10jpy,
+                                   skRand(-radius10jpy, self.size.height + radius10jpy));
+            break;
+        case 2: // 下
+            position = CGPointMake(skRand(-radius10jpy, self.size.width + radius10jpy),
+                                   -radius10jpy);
+            break;
+        case 3: // 左
+            position = CGPointMake(-radius10jpy,
+                                   skRand(-radius10jpy, self.size.height + radius10jpy));
+            break;
+    }
+    jpy10.position = position;
+    
+    [self addChild:jpy10];
+    jpy10.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:jpy10.frame.size.width / 2];
+    jpy10.physicsBody.categoryBitMask = jpyCategory;
+    jpy10.physicsBody.contactTestBitMask = 0;
+    jpy10.physicsBody.collisionBitMask = 0;
+    CGPoint target = CGPointMake(skRand(0, self.size.width),
+                                 skRand(0, self.size.height));
+    CGFloat radian = -(atan2f(target.x - jpy10.position.x,
+                              target.y - jpy10.position.y));
+    jpy10.zRotation = radian;
+    CGFloat x = sin(radian);
+    CGFloat y = cos(radian);
+    jpy10.physicsBody.velocity = CGVectorMake(-(skRand(200, 600) * x), skRand(200, 600) * y);
+}
+
+
+- (void)add50JPY {
+    SKSpriteNode *jpy50 = [SKSpriteNode spriteNodeWithTexture:_texture50jpy];
+    jpy50.name = k50JPYName;
+    jpy50.size = CGSizeMake(radius50jpy * 2, radius50jpy * 2);
+    
+    
+    CGPoint position;
+    switch (arc4random() % 4) {
+        case 0: // 上から出る場合
+            position = CGPointMake(skRand(-radius50jpy, self.size.width + radius50jpy),
+                                   self.size.height + radius50jpy);
+            break;
+        case 1: // 右
+            position = CGPointMake(self.size.width + radius50jpy,
+                                   skRand(-radius50jpy, self.size.height + radius50jpy));
+            break;
+        case 2: // 下
+            position = CGPointMake(skRand(-radius50jpy, self.size.width + radius50jpy),
+                                   -radius50jpy);
+            break;
+        case 3: // 左
+            position = CGPointMake(-radius50jpy,
+                                   skRand(-radius50jpy, self.size.height + radius50jpy));
+            break;
+    }
+    jpy50.position = position;
+    
+    [self addChild:jpy50];
+    jpy50.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:jpy50.frame.size.width / 2];
+    jpy50.physicsBody.categoryBitMask = jpyCategory;
+    jpy50.physicsBody.contactTestBitMask = 0;
+    jpy50.physicsBody.collisionBitMask = 0;
+    CGPoint target = CGPointMake(skRand(0, self.size.width),
+                                 skRand(0, self.size.height));
+    CGFloat radian = -(atan2f(target.x - jpy50.position.x,
+                              target.y - jpy50.position.y));
+    jpy50.zRotation = radian;
+    CGFloat x = sin(radian);
+    CGFloat y = cos(radian);
+    jpy50.physicsBody.velocity = CGVectorMake(-(skRand(200, 600) * x), skRand(200, 600) * y);
+}
+
+
+- (void)add100JPY {
+    SKSpriteNode *jpy100 = [SKSpriteNode spriteNodeWithTexture:_texture100jpy];
+    jpy100.name = k100JPYName;
+    jpy100.size = CGSizeMake(radius100jpy * 2, radius100jpy * 2);
+    
+    
+    CGPoint position;
+    switch (arc4random() % 4) {
+        case 0: // 上から出る場合
+            position = CGPointMake(skRand(-radius100jpy, self.size.width + radius100jpy),
+                                   self.size.height + radius100jpy);
+            break;
+        case 1: // 右
+            position = CGPointMake(self.size.width + radius100jpy,
+                                   skRand(-radius100jpy, self.size.height + radius100jpy));
+            break;
+        case 2: // 下
+            position = CGPointMake(skRand(-radius100jpy, self.size.width + radius100jpy),
+                                   -radius100jpy);
+            break;
+        case 3: // 左
+            position = CGPointMake(-radius100jpy,
+                                   skRand(-radius100jpy, self.size.height + radius100jpy));
+            break;
+    }
+    jpy100.position = position;
+    
+    [self addChild:jpy100];
+    jpy100.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:jpy100.frame.size.width / 2];
+    jpy100.physicsBody.categoryBitMask = jpyCategory;
+    jpy100.physicsBody.contactTestBitMask = 0;
+    jpy100.physicsBody.collisionBitMask = 0;
+    CGPoint target = CGPointMake(skRand(0, self.size.width),
+                                 skRand(0, self.size.height));
+    CGFloat radian = -(atan2f(target.x - jpy100.position.x,
+                              target.y - jpy100.position.y));
+    jpy100.zRotation = radian;
+    CGFloat x = sin(radian);
+    CGFloat y = cos(radian);
+    jpy100.physicsBody.velocity = CGVectorMake(-(skRand(200, 600) * x), skRand(200, 600) * y);
+}
+
+
+- (void)add500JPY {
+    SKSpriteNode *jpy500 = [SKSpriteNode spriteNodeWithTexture:_texture500jpy];
+    jpy500.name = k500JPYName;
+    jpy500.size = CGSizeMake(radius500jpy * 2, radius500jpy * 2);
+    
+    
+    CGPoint position;
+    switch (arc4random() % 4) {
+        case 0: // 上から出る場合
+            position = CGPointMake(skRand(-radius500jpy, self.size.width + radius500jpy),
+                                   self.size.height + radius500jpy);
+            break;
+        case 1: // 右
+            position = CGPointMake(self.size.width + radius500jpy,
+                                   skRand(-radius500jpy, self.size.height + radius500jpy));
+            break;
+        case 2: // 下
+            position = CGPointMake(skRand(-radius500jpy, self.size.width + radius500jpy),
+                                   -radius500jpy);
+            break;
+        case 3: // 左
+            position = CGPointMake(-radius500jpy,
+                                   skRand(-radius500jpy, self.size.height + radius500jpy));
+            break;
+    }
+    jpy500.position = position;
+    
+    [self addChild:jpy500];
+    jpy500.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:jpy500.frame.size.width / 2];
+    jpy500.physicsBody.categoryBitMask = jpyCategory;
+    jpy500.physicsBody.contactTestBitMask = 0;
+    jpy500.physicsBody.collisionBitMask = 0;
+    CGPoint target = CGPointMake(skRand(0, self.size.width),
+                                 skRand(0, self.size.height));
+    CGFloat radian = -(atan2f(target.x - jpy500.position.x,
+                              target.y - jpy500.position.y));
+    jpy500.zRotation = radian;
+    CGFloat x = sin(radian);
+    CGFloat y = cos(radian);
+    jpy500.physicsBody.velocity = CGVectorMake(-(skRand(200, 600) * x), skRand(200, 600) * y);
+}
+
 
 - (void)didSimulatePhysics {
     [self enumerateChildNodesWithName:k1JPYName usingBlock:^(SKNode *node,BOOL *stop) {
@@ -294,9 +510,52 @@ static inline CGFloat skRandf() {
 {
     _score = score;
     //ラベル更新
-    SKLabelNode *scoreNode;
-    scoreNode = (SKLabelNode *)[self childNodeWithName:kScoreName];
-    scoreNode.text = [NSString stringWithFormat:@"%d", _score];
+    scoreNode.text = [NSString stringWithFormat:@"%d円", _score];
+}
+
+
+// ゲームオーバー
+-(void)gameEnded
+{
+    _gameState = STOPPED;
+    
+    NSString *message = [NSString stringWithFormat:@"君のお年玉は%d円", _score];
+    
+    UIAlertView *av = [[UIAlertView alloc] initWithTitle:@"タイムアップ！"
+                                                 message:message
+                                                delegate:nil
+                                                cancelButtonTitle:@"もう一度やる"
+                                                otherButtonTitles:@"辞めさせない", nil];
+    [av show];
+    _score = 0;
+}
+
+
+// タイマー
+-(void)update:(NSTimeInterval)currentTime {
+    if(_gameState == STARTING) {
+        _startedTime = currentTime;
+        _gameState = PLAYING;
+    }
+    
+    if(_gameState == PLAYING) {
+        int timeLeftRounded = ceil(TIME_LEVEL+(_startedTime - currentTime));
+        timerLabel.text = [NSString stringWithFormat:@"残り時間: %d", timeLeftRounded];
+        
+        if(timeLeftRounded == 0) {
+            [self gameEnded];
+        }
+        
+    }
+}
+
+
+// タイマー更新
+-(void)setTime:(int)time
+{
+    _time = time;
+    //ラベル更新
+    timerLabel.text = [NSString stringWithFormat:@"%d残り時間", _time];
 }
 
 
