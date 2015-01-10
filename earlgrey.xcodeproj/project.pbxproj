@@ -23,7 +23,7 @@
 		B293F6D01A5E53C600763087 /* 100jpy.png in Resources */ = {isa = PBXBuildFile; fileRef = B293F6CA1A5E53C600763087 /* 100jpy.png */; };
 		B293F6D11A5E53C600763087 /* 500jpy.png in Resources */ = {isa = PBXBuildFile; fileRef = B293F6CB1A5E53C600763087 /* 500jpy.png */; };
 		B293F6D31A5E5AB900763087 /* 5jpy.png in Resources */ = {isa = PBXBuildFile; fileRef = B293F6D21A5E5AB900763087 /* 5jpy.png */; };
-		B2F667BF1A60F6EB005EFF4E /* coinSE.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B2F667BE1A60F6EB005EFF4E /* coinSE.mp3 */; };
+		B2F667C11A6101AD005EFF4E /* coinSE.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B2F667C01A6101AD005EFF4E /* coinSE.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +60,7 @@
 		B293F6CA1A5E53C600763087 /* 100jpy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 100jpy.png; sourceTree = "<group>"; };
 		B293F6CB1A5E53C600763087 /* 500jpy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 500jpy.png; sourceTree = "<group>"; };
 		B293F6D21A5E5AB900763087 /* 5jpy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 5jpy.png; sourceTree = "<group>"; };
-		B2F667BE1A60F6EB005EFF4E /* coinSE.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = coinSE.mp3; sourceTree = "<group>"; };
+		B2F667C01A6101AD005EFF4E /* coinSE.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = coinSE.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,7 +162,7 @@
 		B2F667BD1A60F6C1005EFF4E /* Music Files */ = {
 			isa = PBXGroup;
 			children = (
-				B2F667BE1A60F6EB005EFF4E /* coinSE.mp3 */,
+				B2F667C01A6101AD005EFF4E /* coinSE.mp3 */,
 			);
 			name = "Music Files";
 			path = earlgrey;
@@ -253,11 +253,11 @@
 				0062D38A1A385EC6009A5E20 /* .gitignore in Resources */,
 				B293F6D11A5E53C600763087 /* 500jpy.png in Resources */,
 				0062D3741A3857A6009A5E20 /* LaunchScreen.xib in Resources */,
+				B2F667C11A6101AD005EFF4E /* coinSE.mp3 in Resources */,
 				B293F6D01A5E53C600763087 /* 100jpy.png in Resources */,
 				0062D3711A3857A6009A5E20 /* Images.xcassets in Resources */,
 				B293F6CC1A5E53C600763087 /* 1jpy.png in Resources */,
 				0062D3691A3857A6009A5E20 /* GameScene.sks in Resources */,
-				B2F667BF1A60F6EB005EFF4E /* coinSE.mp3 in Resources */,
 				B293F6CF1A5E53C600763087 /* 50jpy.png in Resources */,
 				0062D36F1A3857A6009A5E20 /* Main.storyboard in Resources */,
 			);
