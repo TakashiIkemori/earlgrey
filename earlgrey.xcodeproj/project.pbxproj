@@ -88,6 +88,7 @@
 				0062D35D1A3857A6009A5E20 /* earlgrey */,
 				0062D37C1A3857A6009A5E20 /* earlgreyTests */,
 				0062D35C1A3857A6009A5E20 /* Products */,
+				B2F667BD1A60F6C1005EFF4E /* Music Files */,
 				B293F6C51A5E4F2700763087 /* Image Files */,
 			);
 			sourceTree = "<group>";
@@ -157,6 +158,15 @@
 				B293F6CB1A5E53C600763087 /* 500jpy.png */,
 			);
 			name = "Image Files";
+			sourceTree = "<group>";
+		};
+		B2F667BD1A60F6C1005EFF4E /* Music Files */ = {
+			isa = PBXGroup;
+			children = (
+				B2F667BE1A60F6EB005EFF4E /* coinSE.mp3 */,
+			);
+			name = "Music Files";
+			path = earlgrey;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
