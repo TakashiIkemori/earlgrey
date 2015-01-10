@@ -16,7 +16,6 @@
 
 
 #import "GameScene.h"
-SKTexture *_texture;
 
 @implementation GameScene
 
@@ -40,6 +39,7 @@ SKTexture *_texture;
     SKLabelNode *scoreNode = [SKLabelNode labelNodeWithFontNamed:@"Baskerville-Bold"];
     scoreNode.name = kScoreName;
     scoreNode.fontSize = 30;
+
     [self addChild:scoreNode];
     self.score = 0;
     scoreNode.position = CGPointMake(self.size.width / 2, self.frame.size.height -30);
@@ -89,10 +89,13 @@ static inline CGFloat skRandf() {
     circle.Path = CGPathCreateWithEllipseInRect(CGRectMake(-25, -25, 50, 50), nil);
     circle.fillColor = [SKColor redColor];
     
+   
+    
     CGPoint position;
     switch (arc4random() % 4) {
         case 0: // 上から出る場合
-            position = CGPointMake(skRand(0,self.frame.size.width),self.frame.size.height);
+            position = CGPointMake(skRand(0,self.frame.size.width),
+                                   self.frame.size.height);
             break;
         case 1: // 右
             position = CGPointMake(self.frame.size.width,skRand(0,self.frame.size.height));
@@ -104,6 +107,7 @@ static inline CGFloat skRandf() {
             position = CGPointMake(0,skRand(0, self.frame.size.height));
             break;
     }
+    
     circle.position = position;
     
     [self addChild:circle];
@@ -117,6 +121,7 @@ static inline CGFloat skRandf() {
     circle.zRotation = radian;
     CGFloat x = sin(radian);
     CGFloat y = cos(radian);
+    
     circle.physicsBody.velocity = CGVectorMake(-(400*x), (400*y));
 }
 
@@ -133,7 +138,7 @@ static inline CGFloat skRandf() {
 {
     _score = score;
     //ラベル更新
-    SKLabelNode* scoreNode;
+    SKLabelNode *scoreNode;
     scoreNode = (SKLabelNode *)[self childNodeWithName:kScoreName];
     scoreNode.text = [NSString stringWithFormat:@"%d", _score];
 }
