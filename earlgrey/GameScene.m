@@ -16,7 +16,7 @@
 
 
 #import "GameScene.h"
-const int TIME_LEVEL = 05.0f; // <----- ここで秒数を設定 現在　5秒。
+const int TIME_LEVEL = 105.0f; // <----- ここで秒数を設定 現在　105秒。
 
 
 
@@ -46,6 +46,7 @@ const int TIME_LEVEL = 05.0f; // <----- ここで秒数を設定 現在　5秒�
     NSTimeInterval _startedTime;
     
     SKAction *coinremove;
+    SKAction *coinSE;
 }
 
 -(void)didMoveToView:(SKView *)view {
@@ -123,13 +124,15 @@ const int TIME_LEVEL = 05.0f; // <----- ここで秒数を設定 現在　5秒�
     _texture100jpy = [SKTexture textureWithImageNamed:@"100jpy.png"];
     _texture500jpy = [SKTexture textureWithImageNamed:@"500jpy.png"];
     
+    //SE
+    coinSE = [SKAction playSoundFileNamed:@"coinSE.mp3" waitForCompletion:YES];
+    
     //coinremove
     coinremove = [SKAction sequence: @[
-                                        [SKAction moveBy:CGVectorMake(0, 50) duration:0.15],
-                                        [SKAction moveBy:CGVectorMake(0, -50) duration:0.15],
-                                        [SKAction fadeOutWithDuration:0.5],
-                                        [SKAction removeFromParent]
-                                        ]];
+                                       [SKAction moveBy:CGVectorMake(0, 100) duration:0.15],
+                                       [SKAction fadeOutWithDuration:0.1],
+                                       [SKAction removeFromParent]
+                                       ]];
     
    
 }
@@ -147,6 +150,7 @@ const int TIME_LEVEL = 05.0f; // <----- ここで秒数を設定 現在　5秒�
                 _gameState = STARTING;
             }
             node.physicsBody.dynamic = NO;
+            [node runAction:coinSE];
             [node runAction:coinremove];
             self.score += 1;
         }
@@ -155,6 +159,7 @@ const int TIME_LEVEL = 05.0f; // <----- ここで秒数を設定 現在　5秒�
                 _gameState = STARTING;
             }
             node.physicsBody.dynamic = NO;
+            [node runAction:coinSE];
             [node runAction:coinremove];
             self.score += 5;
         }
@@ -163,6 +168,7 @@ const int TIME_LEVEL = 05.0f; // <----- ここで秒数を設定 現在　5秒�
                 _gameState = STARTING;
             }
             node.physicsBody.dynamic = NO;
+            [node runAction:coinSE];
             [node runAction:coinremove];
             self.score += 10;
         }
@@ -171,6 +177,7 @@ const int TIME_LEVEL = 05.0f; // <----- ここで秒数を設定 現在　5秒�
                 _gameState = STARTING;
             }
             node.physicsBody.dynamic = NO;
+            [node runAction:coinSE];
             [node runAction:coinremove];
             self.score += 50;
         }
@@ -179,6 +186,7 @@ const int TIME_LEVEL = 05.0f; // <----- ここで秒数を設定 現在　5秒�
                 _gameState = STARTING;
             }
             node.physicsBody.dynamic = NO;
+            [node runAction:coinSE];
             [node runAction:coinremove];
             self.score += 100;
         }
@@ -187,6 +195,7 @@ const int TIME_LEVEL = 05.0f; // <----- ここで秒数を設定 現在　5秒�
                 _gameState = STARTING;
             }
             node.physicsBody.dynamic = NO;
+            [node runAction:coinSE];
             [node runAction:coinremove];
             self.score += 500;
         }
