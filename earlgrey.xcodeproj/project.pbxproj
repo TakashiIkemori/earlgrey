@@ -256,6 +256,7 @@
 				0062D38A1A385EC6009A5E20 /* .gitignore in Resources */,
 				B293F6D11A5E53C600763087 /* 500jpy.png in Resources */,
 				0062D3741A3857A6009A5E20 /* LaunchScreen.xib in Resources */,
+				B2F667C11A6101AD005EFF4E /* coinSE.mp3 in Resources */,
 				B293F6D01A5E53C600763087 /* 100jpy.png in Resources */,
 				0062D3711A3857A6009A5E20 /* Images.xcassets in Resources */,
 				B293F6CC1A5E53C600763087 /* 1jpy.png in Resources */,
