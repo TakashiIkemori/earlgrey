@@ -138,6 +138,8 @@ const int TIME_LEVEL = 105.0f; // <----- ここで秒数を設定 現在　105�
     NSURL *url = [NSURL fileURLWithPath:path];
     self.bgm = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:NULL];
     [self.bgm play];
+    _bgm.numberOfLoops = -1; //ここのコードは音を何回鳴らしますか？という意味。
+                             //０より低い数値を設定する事でbgmをループ使用できます。(コメント確認後削除よろしく)
 }
 
 
