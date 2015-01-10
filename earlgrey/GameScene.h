@@ -7,7 +7,7 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
-#import <AVFoundation/AVFoundation.h> //音を鳴らす為に必要(確認後
+#import <AVFoundation/AVFoundation.h> //音を鳴らす為に必要(コメント確認後削除よろしく
 
 #define k1JPYName @"1JPY"
 #define k5JPYName @"5JPY"
