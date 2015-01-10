@@ -166,6 +166,7 @@
 		B2F667BD1A60F6C1005EFF4E /* Music Files */ = {
 			isa = PBXGroup;
 			children = (
+				B2F667C01A6101AD005EFF4E /* coinSE.mp3 */,
 			);
 			name = "Music Files";
 			path = earlgrey;
