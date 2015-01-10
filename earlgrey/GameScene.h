@@ -7,6 +7,7 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import <AVFoundation/AVFoundation.h> //音を鳴らす為に必要(確認後
 
 #define k1JPYName @"1JPY"
 #define k5JPYName @"5JPY"
@@ -29,5 +30,7 @@ typedef enum {
 
 @property (assign, nonatomic)int score;		//スコア
 @property (assign, nonatomic)int time;      //タイム
+
+@property AVAudioPlayer *bgm;
 
 @end

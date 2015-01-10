@@ -24,6 +24,7 @@
 		B293F6D11A5E53C600763087 /* 500jpy.png in Resources */ = {isa = PBXBuildFile; fileRef = B293F6CB1A5E53C600763087 /* 500jpy.png */; };
 		B293F6D31A5E5AB900763087 /* 5jpy.png in Resources */ = {isa = PBXBuildFile; fileRef = B293F6D21A5E5AB900763087 /* 5jpy.png */; };
 		B2C747A11A60F79600C7749D /* coinSE.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B2C747A01A60F79600C7749D /* coinSE.mp3 */; };
+		B2F3FF661A61164C00960BAF /* jpBGM.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B2F3FF651A61164C00960BAF /* jpBGM.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		B293F6CB1A5E53C600763087 /* 500jpy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 500jpy.png; sourceTree = "<group>"; };
 		B293F6D21A5E5AB900763087 /* 5jpy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 5jpy.png; sourceTree = "<group>"; };
 		B2C747A01A60F79600C7749D /* coinSE.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = coinSE.mp3; path = ../../../../bgm/coinSE.mp3; sourceTree = "<group>"; };
+		B2F3FF651A61164C00960BAF /* jpBGM.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = jpBGM.mp3; path = ../../../../bgm/jpBGM.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 				0062D36A1A3857A6009A5E20 /* GameViewController.h */,
 				0062D36B1A3857A6009A5E20 /* GameViewController.m */,
 				B2C747A01A60F79600C7749D /* coinSE.mp3 */,
+				B2F3FF651A61164C00960BAF /* jpBGM.mp3 */,
 				0062D36D1A3857A6009A5E20 /* Main.storyboard */,
 				0062D3701A3857A6009A5E20 /* Images.xcassets */,
 				0062D3721A3857A6009A5E20 /* LaunchScreen.xib */,
@@ -163,7 +166,6 @@
 		B2F667BD1A60F6C1005EFF4E /* Music Files */ = {
 			isa = PBXGroup;
 			children = (
-				B2F667BE1A60F6EB005EFF4E /* coinSE.mp3 */,
 			);
 			name = "Music Files";
 			path = earlgrey;
@@ -260,6 +262,7 @@
 				0062D3691A3857A6009A5E20 /* GameScene.sks in Resources */,
 				B2C747A11A60F79600C7749D /* coinSE.mp3 in Resources */,
 				B293F6CF1A5E53C600763087 /* 50jpy.png in Resources */,
+				B2F3FF661A61164C00960BAF /* jpBGM.mp3 in Resources */,
 				0062D36F1A3857A6009A5E20 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

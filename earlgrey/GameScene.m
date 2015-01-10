@@ -18,9 +18,12 @@
 #import "GameScene.h"
 const int TIME_LEVEL = 105.0f; // <----- ここで秒数を設定 現在　105秒。
 
+
+
 // ゲームのステータス
 @interface GameScene()
 @end
+
 
 @implementation GameScene {
     
@@ -43,8 +46,7 @@ const int TIME_LEVEL = 105.0f; // <----- ここで秒数を設定 現在　105�
     NSTimeInterval _startedTime;
     
     SKAction *coinremove;
-    
-    SKAction *SECoin;
+    SKAction *coinSE;
 }
 
 -(void)didMoveToView:(SKView *)view {
@@ -127,20 +129,24 @@ const int TIME_LEVEL = 105.0f; // <----- ここで秒数を設定 現在　105�
     
     //coinremove
     coinremove = [SKAction sequence: @[
-                                       [SKAction moveBy:CGVectorMake(0, 50) duration:0.15],
-                                       [SKAction moveBy:CGVectorMake(0, 0) duration:0.15],
-                                       [SKAction fadeOutWithDuration:0.2],
+                                       [SKAction moveBy:CGVectorMake(0, 100) duration:0.15],
+                                       [SKAction fadeOutWithDuration:0.1],
                                        [SKAction removeFromParent]
                                        ]];
+    //bgm
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"jpBGM" ofType:@"mp3"];
+    NSURL *url = [NSURL fileURLWithPath:path];
+    self.bgm = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:NULL];
+    [self.bgm play];
 }
+
 
 // タッチ
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     for (UITouch *touch in touches) {
         CGPoint location = [touch locationInNode:self];
-
+   
         SKNode *node = [self nodeAtPoint:location];
-        SECoin = [SKAction playSoundFileNamed:@"coinSE.mp3" waitForCompletion:NO];
         
         if (node != nil && [node.name isEqualToString:k1JPYName]) {
             if(_gameState == STOPPED) {         // 1枚目のコインが消えたらスタート
@@ -149,7 +155,6 @@ const int TIME_LEVEL = 105.0f; // <----- ここで秒数を設定 現在　105�
             node.physicsBody.dynamic = NO;
             [node runAction:coinSE];
             [node runAction:coinremove];
-            [self runAction:SECoin];
             self.score += 1;
         }
         if (node != nil && [node.name isEqualToString:k5JPYName]) {
@@ -159,7 +164,6 @@ const int TIME_LEVEL = 105.0f; // <----- ここで秒数を設定 現在　105�
             node.physicsBody.dynamic = NO;
             [node runAction:coinSE];
             [node runAction:coinremove];
-            [self runAction:SECoin];
             self.score += 5;
         }
         if (node != nil && [node.name isEqualToString:k10JPYName]) {
@@ -169,7 +173,6 @@ const int TIME_LEVEL = 105.0f; // <----- ここで秒数を設定 現在　105�
             node.physicsBody.dynamic = NO;
             [node runAction:coinSE];
             [node runAction:coinremove];
-            [self runAction:SECoin];
             self.score += 10;
         }
         if (node != nil && [node.name isEqualToString:k50JPYName]) {
@@ -179,7 +182,6 @@ const int TIME_LEVEL = 105.0f; // <----- ここで秒数を設定 現在　105�
             node.physicsBody.dynamic = NO;
             [node runAction:coinSE];
             [node runAction:coinremove];
-            [self runAction:SECoin];
             self.score += 50;
         }
         if (node != nil && [node.name isEqualToString:k100JPYName]) {
@@ -189,7 +191,6 @@ const int TIME_LEVEL = 105.0f; // <----- ここで秒数を設定 現在　105�
             node.physicsBody.dynamic = NO;
             [node runAction:coinSE];
             [node runAction:coinremove];
-            [self runAction:SECoin];
             self.score += 100;
         }
         if (node != nil && [node.name isEqualToString:k500JPYName]) {
@@ -199,7 +200,6 @@ const int TIME_LEVEL = 105.0f; // <----- ここで秒数を設定 現在　105�
             node.physicsBody.dynamic = NO;
             [node runAction:coinSE];
             [node runAction:coinremove];
-            [self runAction:SECoin];
             self.score += 500;
         }
     }
@@ -257,7 +257,6 @@ static inline CGFloat skRandf() {
     jpy1.physicsBody.velocity = CGVectorMake(-(skRand(200, 600) * x), skRand(200, 600) * y);
 }
 
-
 - (void)add5JPY {
     SKSpriteNode *jpy5 = [SKSpriteNode spriteNodeWithTexture:_texture5jpy];
     jpy5.name = k5JPYName;
@@ -299,7 +298,6 @@ static inline CGFloat skRandf() {
     CGFloat y = cos(radian);
     jpy5.physicsBody.velocity = CGVectorMake(-(skRand(200, 600) * x), skRand(200, 600) * y);
 }
-
 
 - (void)add10JPY {
     SKSpriteNode *jpy10 = [SKSpriteNode spriteNodeWithTexture:_texture10jpy];
@@ -343,7 +341,6 @@ static inline CGFloat skRandf() {
     jpy10.physicsBody.velocity = CGVectorMake(-(skRand(200, 600) * x), skRand(200, 600) * y);
 }
 
-
 - (void)add50JPY {
     SKSpriteNode *jpy50 = [SKSpriteNode spriteNodeWithTexture:_texture50jpy];
     jpy50.name = k50JPYName;
@@ -385,7 +382,6 @@ static inline CGFloat skRandf() {
     CGFloat y = cos(radian);
     jpy50.physicsBody.velocity = CGVectorMake(-(skRand(200, 600) * x), skRand(200, 600) * y);
 }
-
 
 - (void)add100JPY {
     SKSpriteNode *jpy100 = [SKSpriteNode spriteNodeWithTexture:_texture100jpy];
@@ -429,7 +425,6 @@ static inline CGFloat skRandf() {
     jpy100.physicsBody.velocity = CGVectorMake(-(skRand(200, 600) * x), skRand(200, 600) * y);
 }
 
-
 - (void)add500JPY {
     SKSpriteNode *jpy500 = [SKSpriteNode spriteNodeWithTexture:_texture500jpy];
     jpy500.name = k500JPYName;
@@ -471,7 +466,6 @@ static inline CGFloat skRandf() {
     CGFloat y = cos(radian);
     jpy500.physicsBody.velocity = CGVectorMake(-(skRand(200, 600) * x), skRand(200, 600) * y);
 }
-
 
 - (void)didSimulatePhysics {
     [self enumerateChildNodesWithName:k1JPYName usingBlock:^(SKNode *node,BOOL *stop) {
@@ -522,7 +516,6 @@ static inline CGFloat skRandf() {
     scoreNode.text = [NSString stringWithFormat:@"%d円", _score];
 }
 
-
 // ゲームオーバー
 -(void)gameEnded
 {
@@ -538,7 +531,6 @@ static inline CGFloat skRandf() {
     [av show];
     _score = 0;
 }
-
 
 // タイマー
 -(void)update:(NSTimeInterval)currentTime {
@@ -566,6 +558,7 @@ static inline CGFloat skRandf() {
     //ラベル更新
     timerLabel.text = [NSString stringWithFormat:@"%d残り時間", _time];
 }
+
 
 
 @end
