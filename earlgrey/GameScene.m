@@ -45,7 +45,7 @@ const int TIME_LEVEL = 05.0f; // <----- ここで秒数を設定 現在　5秒�
     GameState _gameState;
     NSTimeInterval _startedTime;
     
-    
+    SKAction *coinremove;
 }
 
 -(void)didMoveToView:(SKView *)view {
@@ -61,8 +61,8 @@ const int TIME_LEVEL = 05.0f; // <----- ここで秒数を設定 現在　5秒�
 
     //硬貨の生成
     SKAction *make1JPY = [SKAction sequence: @[
-                                                  [SKAction performSelector:@selector(add1JPY) onTarget:self],
-                                                  [SKAction waitForDuration:1.5 withRange:3.0]]];
+                                               [SKAction performSelector:@selector(add1JPY) onTarget:self],
+                                               [SKAction waitForDuration:1.5 withRange:3.0]]];
     [self runAction: [SKAction repeatActionForever:make1JPY]];
     SKAction *make5JPY = [SKAction sequence: @[
                                                [SKAction performSelector:@selector(add5JPY) onTarget:self],
@@ -122,6 +122,15 @@ const int TIME_LEVEL = 05.0f; // <----- ここで秒数を設定 現在　5秒�
     _texture50jpy = [SKTexture textureWithImageNamed:@"50jpy.png"];
     _texture100jpy = [SKTexture textureWithImageNamed:@"100jpy.png"];
     _texture500jpy = [SKTexture textureWithImageNamed:@"500jpy.png"];
+    
+    //coinremove
+    coinremove = [SKAction sequence: @[
+                                        [SKAction moveBy:CGVectorMake(0, 50) duration:0.15],
+                                        [SKAction moveBy:CGVectorMake(0, -50) duration:0.15],
+                                        [SKAction fadeOutWithDuration:0.5],
+                                        [SKAction removeFromParent]
+                                        ]];
+    
    
 }
 
@@ -137,47 +146,48 @@ const int TIME_LEVEL = 05.0f; // <----- ここで秒数を設定 現在　5秒�
             if(_gameState == STOPPED) {         // 1枚目のコインが消えたらスタート
                 _gameState = STARTING;
             }
-            [node removeFromParent];
+            node.physicsBody.dynamic = NO;
+            [node runAction:coinremove];
             self.score += 1;
         }
         if (node != nil && [node.name isEqualToString:k5JPYName]) {
             if(_gameState == STOPPED) {         // 1枚目のコインが消えたらスタート
                 _gameState = STARTING;
             }
-
-            [node removeFromParent];
+            node.physicsBody.dynamic = NO;
+            [node runAction:coinremove];
             self.score += 5;
         }
         if (node != nil && [node.name isEqualToString:k10JPYName]) {
             if(_gameState == STOPPED) {         // 1枚目のコインが消えたらスタート
                 _gameState = STARTING;
             }
-
-            [node removeFromParent];
+            node.physicsBody.dynamic = NO;
+            [node runAction:coinremove];
             self.score += 10;
         }
         if (node != nil && [node.name isEqualToString:k50JPYName]) {
             if(_gameState == STOPPED) {         // 1枚目のコインが消えたらスタート
                 _gameState = STARTING;
             }
-
-            [node removeFromParent];
+            node.physicsBody.dynamic = NO;
+            [node runAction:coinremove];
             self.score += 50;
         }
         if (node != nil && [node.name isEqualToString:k100JPYName]) {
             if(_gameState == STOPPED) {            // 1枚目のコインが消えたらスタート
                 _gameState = STARTING;
             }
-
-            [node removeFromParent];
+            node.physicsBody.dynamic = NO;
+            [node runAction:coinremove];
             self.score += 100;
         }
         if (node != nil && [node.name isEqualToString:k500JPYName]) {
             if(_gameState == STOPPED) {         // 1枚目のコインが消えたらスタート
                 _gameState = STARTING;
             }
-
-            [node removeFromParent];
+            node.physicsBody.dynamic = NO;
+            [node runAction:coinremove];
             self.score += 500;
         }
     }
